@@ -28,7 +28,10 @@ class WWN(object):
         return address.lower()
     def __eq__(self, other):
         if isinstance(other, basestring):
-            other = WWN(other)
+            try:
+                other = WWN(other)
+            except InvalidWWN:
+                return False
         elif not isinstance(other, WWN):
             return False
         return self._address == other._address
