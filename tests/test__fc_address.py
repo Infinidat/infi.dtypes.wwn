@@ -46,3 +46,8 @@ class WWNTest(unittest.TestCase):
     def test_higher_addresses(self):
         wwn = "ab:cd:ef:FE:DC:BA:01:23"
         self.assertEqual(WWN(wwn), wwn)
+
+    def test_not_equals__empty_string(self):
+        wwn = "ab:cd:ef:FE:DC:BA:01:23"
+        self.assertNotEqual(WWN(wwn), "")
+
