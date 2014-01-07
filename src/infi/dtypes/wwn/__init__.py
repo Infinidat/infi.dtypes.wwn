@@ -1,10 +1,14 @@
 __import__("pkg_resources").declare_namespace(__name__)
 
+import sys
 import string
+
+PY2 = sys.version_info[0] == 2
+string_type = basestring if PY2 else str
 
 class InvalidWWN(ValueError):
     def __init__(self, value):
-        super(InvalidWWN, self).__init__("Invalid FC address form: {!r}".format(value))
+        super(InvalidWWN, self).__init__("Invalid FC address form: {0!r}".format(value))
 
 class WWN(object):
     def __init__(self, address):
@@ -27,7 +31,7 @@ class WWN(object):
             raise InvalidWWN(address)
         return address.lower()
     def __eq__(self, other):
-        if isinstance(other, basestring):
+        if isinstance(other, string_type):
             try:
                 other = WWN(other)
             except InvalidWWN:
@@ -42,10 +46,10 @@ class WWN(object):
     def __hash__(self):
         return hash(self._address)
     def __lt__(self, other):
-        if isinstance(other, basestring):
+        if isinstance(other, string_type):
             other = WWN(other)
         if not isinstance(other, WWN):
-            raise TypeError("Comparing WWN object to {!r}".format(other))
+            raise TypeError("Comparing WWN object to {0!r}".format(other))
         return self._address < other._address
     def __gt__(self, other):
         return not self <= other
