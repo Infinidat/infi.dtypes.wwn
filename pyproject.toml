@@ -1,0 +1,8 @@
+# Metadata deliberately lives in setup.py rather than here, so that there is a
+# single place to look for it. This file exists only to declare the build
+# backend: without it, build frontends fall back to legacy assumptions about
+# setuptools being present, which is exactly the kind of implicit dependency
+# that can break this package (e.g. when pkg_resources is no longer supported).
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
